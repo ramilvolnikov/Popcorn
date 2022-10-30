@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewModel" type="com.example.popcorn.viewmodels.ItemsModel" />
+        <variable name="mViewModel" type="com.example.popcorn.viewmodels.ItemsViewModel" />
+        <variable name="favouriteViewModel" type="com.example.popcorn.viewmodels.FavouriteViewModel" />
+        <variable name="handler" type="com.example.popcorn.MyHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        >
+
+        <ImageView
+            android:id="@+id/article_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:transitionName="image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerCrop"
+            app:imageBitmapUrl="@{viewModel.image}"
+            />
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="@{viewModel.fullTitle}"
+            android:maxLines="2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/article_description"
+            app:layout_constraintStart_toEndOf="@+id/article_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:id="@+id/article_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@{viewModel.crew}"
+            android:maxLines="5"
+            app:layout_constraintTop_toBottomOf="@id/article_title"
+            app:layout_constraintBottom_toTopOf="@id/article_data"
+            app:layout_constraintStart_toEndOf="@+id/article_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            />
+
+        <TextView
+            android:id="@+id/article_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{viewModel.imDbRating}"
+            app:layout_constraintTop_toBottomOf="@id/article_description"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="104dp"
+            android:text="Add to favourite"
+            android:onCheckedChanged="@{(view, checked) -> handler.onEnabled(viewModel, favouriteViewModel, checked)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/article_data"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/article_image"
+            app:layout_constraintTop_toBottomOf="@+id/article_description"
+            app:layout_constraintVertical_bias="0.32" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/holo_orange_dark"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
